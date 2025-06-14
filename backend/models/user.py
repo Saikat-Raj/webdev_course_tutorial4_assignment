@@ -11,7 +11,6 @@ class User:
         self.collection = self.db.users
 
     def create_user(self, user_data):
-        """Create a new user in the database"""
         # Hash the password
         hashed_password = bcrypt.hashpw(
             user_data["password"].encode("utf-8"), bcrypt.gensalt()
@@ -32,9 +31,7 @@ class User:
         return str(result.inserted_id)
 
     def find_user_by_email(self, email):
-        """Find user by email address"""
         return self.collection.find_one({"email": email})
 
     def email_exists(self, email):
-        """Check if email already exists"""
         return self.collection.find_one({"email": email}) is not None
